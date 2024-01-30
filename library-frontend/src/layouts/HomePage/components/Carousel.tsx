@@ -39,10 +39,10 @@ export const Carousel = () => {
 					category: responseData[key].category,
 					image: responseData[key].image,
 				});
-
-				setBooks(loadedBooks);
-				setIsLoading(false);
 			}
+
+			setBooks(loadedBooks);
+			setIsLoading(false);
 		};
 
 		fetchBooks().catch((error: any) => {
