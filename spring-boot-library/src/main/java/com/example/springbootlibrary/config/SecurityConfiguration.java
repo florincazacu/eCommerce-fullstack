@@ -29,7 +29,7 @@ public class SecurityConfiguration {
 			);
 
 		// add CORS filters
-		http.cors(AbstractHttpConfigurer::disable);
+		http.cors();
 
 		// add content negotiation strategy
 		http.setSharedObject(ContentNegotiationStrategy.class, new HeaderContentNegotiationStrategy());
