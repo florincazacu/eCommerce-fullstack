@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/books")
 public class BookController {
 
-	private static final String SUB = "\"Sub\"";
+	private static final String SUB = "\"sub\"";
 	private final BookService bookService;
 
 	public BookController(BookService bookService) {
