@@ -3,7 +3,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Review} from "../Utils/Review";
 
-export const LatestReviews: React.FC<{ reviews: ReviewModel[], bookId: number | undefined, mobile: boolean }> = (props) => {
+export const LatestReviews: React.FC<{reviews: ReviewModel[], bookId: number | undefined, mobile: boolean}> = (props) => {
 	return (
 		<div className={props.mobile ? 'mt-3' : 'row mt-5'}>
 			<div className={props.mobile ? '' : 'col-sm-2 col-md-2'}>
@@ -17,7 +17,8 @@ export const LatestReviews: React.FC<{ reviews: ReviewModel[], bookId: number | 
 						))}
 
 						<div className='m-3'>
-							<Link type='button' className='btn main-color btn-md text-white' to='#'>
+							<Link type='button' className='btn main-color btn-md text-white'
+							      to={`/reviewlist/${props.bookId}`}>
 								Reach all reviews
 							</Link>
 						</div>
