@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
-
-	private static final String SUB = "\"sub\"";
 	private final BookService bookService;
 
 	public BookController(BookService bookService) {
@@ -19,21 +17,21 @@ public class BookController {
 
 	@GetMapping("/secure/currentloans/count")
 	public int currentLoansCount(@RequestHeader(value = "Authorization") String token) {
-		String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
+		String userEmail = ExtractJwt.payloadJwtExtraction(token, Util.SUB);
 
 		return bookService.currentLoansCount(userEmail);
 	}
 
 	@GetMapping("/secure/ischeckedout/byuser")
 	public Boolean checkoutBookByUser(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) {
-		String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
+		String userEmail = ExtractJwt.payloadJwtExtraction(token, Util.SUB);
 
 		return bookService.checkoutBookByUser(userEmail, bookId);
 	}
 
 	@PutMapping("/secure/checkout")
 	public Book checkoutBook(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception {
-		String userEmail = ExtractJwt.payloadJwtExtraction(token, SUB);
+		String userEmail = ExtractJwt.payloadJwtExtraction(token, Util.SUB);
 
 		return bookService.checkoutBook(userEmail, bookId);
 	}
