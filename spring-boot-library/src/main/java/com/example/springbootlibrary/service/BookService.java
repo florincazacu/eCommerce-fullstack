@@ -2,8 +2,10 @@ package com.example.springbootlibrary.service;
 
 import com.example.springbootlibrary.dao.BookRepository;
 import com.example.springbootlibrary.dao.CheckoutRepository;
+import com.example.springbootlibrary.dao.HistoryRepository;
 import com.example.springbootlibrary.entity.Book;
 import com.example.springbootlibrary.entity.Checkout;
+import com.example.springbootlibrary.entity.History;
 import com.example.springbootlibrary.responsemodels.ShelfCurrentLoansResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +26,12 @@ public class BookService {
 
 	private final CheckoutRepository checkoutRepository;
 
-	public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository) {
+	private final HistoryRepository historyRepository;
+
+	public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository, HistoryRepository historyRepository) {
 		this.bookRepository = bookRepository;
 		this.checkoutRepository = checkoutRepository;
+		this.historyRepository = historyRepository;
 	}
 
 	public Book checkoutBook(String userEmail, Long bookId) throws Exception {
@@ -95,17 +100,25 @@ public class BookService {
 	}
 
 	public void returnBook(String userEmail, Long bookId) throws Exception {
-		Optional<Book> book = bookRepository.findById(bookId);
+		Optional<Book> optionalBook = bookRepository.findById(bookId);
 
 		Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
-		if (book.isEmpty() || validateCheckout == null) {
+		if (optionalBook.isEmpty() || validateCheckout == null) {
 			throw new Exception("Book does not exist or not checked out by user");
 		}
 
-		book.get().setCopiesAvailable(book.get().getCopiesAvailable() + 1);
-		bookRepository.save(book.get());
+		optionalBook.get().setCopiesAvailable(optionalBook.get().getCopiesAvailable() + 1);
+		bookRepository.save(optionalBook.get());
 		checkoutRepository.deleteById(validateCheckout.getId());
+
+		Book book = optionalBook.get();
+
+		History history = new History(userEmail, validateCheckout.getCheckoutDate(), LocalDate.now().toString(),
+			book.getTitle(), book.getAuthor(), book.getDescription(), book.getImage()
+		);
+
+		historyRepository.save(history);
 	}
 
 	public void renewLoan(String userEmail, Long bookId) throws Exception {
