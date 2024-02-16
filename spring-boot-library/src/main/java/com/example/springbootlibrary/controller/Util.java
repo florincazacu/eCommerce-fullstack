@@ -6,4 +6,5 @@ public class Util {
 	}
 
 	public static final String SUB = "\"sub\"";
+	public static final String ADMIN = "\"userType\"";
 }

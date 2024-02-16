@@ -28,7 +28,7 @@ public class MessagesController {
 	public void putMessage(@RequestHeader(value = "Authorization") String token,
 	                       @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
 		String userEmail = ExtractJwt.payloadJwtExtraction(token, Util.SUB);
-		String admin = ExtractJwt.payloadJwtExtraction(token, "\"userType\"");
+		String admin = ExtractJwt.payloadJwtExtraction(token, Util.ADMIN);
 
 		if (admin == null || !admin.equals("admin")) {
 			throw new Exception("Administration page only.");
