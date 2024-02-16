@@ -2,6 +2,7 @@ import {useOktaAuth} from "@okta/okta-react";
 import {useState} from "react";
 import {Redirect} from "react-router-dom";
 import {AdminMessages} from "./components/AdminMessages";
+import {AddNewBook} from "./components/AddNewBook";
 
 export const ManageLibraryPage = () => {
 
@@ -34,7 +35,8 @@ export const ManageLibraryPage = () => {
 				<h3>Manage Library</h3>
 				<nav>
 					<div className='nav nav-tabs' id='nav-tab' role='tablist'>
-						<button onClick={addBookClickFunction} className='nav-link active' id='nav-add-book-tab' data-bs-toggle='tab'
+						<button onClick={addBookClickFunction} className='nav-link active' id='nav-add-book-tab'
+						        data-bs-toggle='tab'
 						        data-bs-target='#nav-add-book' type='button' role='tab' aria-controls='nav-add-book'
 						        aria-selected='false'>
 							Add new book
@@ -56,7 +58,7 @@ export const ManageLibraryPage = () => {
 				<div className='tab-content' id='nav-tabContent'>
 					<div className='tab-pane fade show active' id='nav-add-book' role='tabpanel'
 					     aria-labelledby='nav-add-book-tab'>
-						Add new book
+						<AddNewBook/>
 					</div>
 					<div className='tab-pane fade' id='nav-quantity' role='tabpanel' aria-labelledby='nav-quantity-tab'>
 						{changeQuantityOfBooksClick ? <>Change Quantity</> : <></>}
