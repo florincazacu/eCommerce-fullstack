@@ -5,7 +5,7 @@ import com.example.springbootlibrary.service.AdminService;
 import com.example.springbootlibrary.utils.ExtractJwt;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://localhost:3000")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
