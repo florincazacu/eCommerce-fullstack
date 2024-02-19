@@ -11,8 +11,6 @@ export const Navbar = () => {
 		return <SpinnerLoading/>
 	}
 
-	console.log('authState ', authState);
-
 	const handleLogout = async () => oktaAuth.signOut();
 
 	return (
@@ -40,25 +38,30 @@ export const Navbar = () => {
                             <NavLink className='nav-link' to='/shelf'>Shelf</NavLink>
                         </li>
 						}
+						{authState.isAuthenticated &&
+                        <li className='nav-item'>
+                            <NavLink className='nav-link' to='/fees'>Pay fees</NavLink>
+                        </li>
+						}
 						{authState.isAuthenticated && authState.accessToken?.claims?.userType === 'admin' &&
-						< li className='nav-item'>
-							<NavLink className='nav-link' to='/admin'>Admin</NavLink>
-							</li>
-							}
-							</ul>
-							<ul className='navbar-nav ms-auto'>
+                        < li className='nav-item'>
+                            <NavLink className='nav-link' to='/admin'>Admin</NavLink>
+                        </li>
+						}
+					</ul>
+					<ul className='navbar-nav ms-auto'>
 						{!authState.isAuthenticated ?
 							<li className='nav-item m-1'>
-							<Link type='button' className='btn btn-outline-light' to='/login'>Sign in</Link>
+								<Link type='button' className='btn btn-outline-light' to='/login'>Sign in</Link>
 							</li>
 							:
 							<li>
-							<button className='btn btn-outline-light' onClick={handleLogout}>Logout</button>
+								<button className='btn btn-outline-light' onClick={handleLogout}>Logout</button>
 							</li>
 						}
-							</ul>
-							</div>
-							</div>
-							</nav>
-							);
-						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	);
+}
